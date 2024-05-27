@@ -1,0 +1,59 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0.25
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db-data:/var/lib/mysql
+    env_file: docker/development/.env
+
+  redis:
+    image: redis:5.0.1
+  sidekiq:
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+
+    build:
+      context: .
+      dockerfile: docker/development/Dockerfile.sidekiq
+    env_file: docker/development/.env
+    stdin_open: true
+    tty: true
+    volumes:
+      - ".:/app"
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+  app:
+    build:
+      context: .
+      dockerfile: docker/development/Dockerfile
+    volumes:
+      - .:/app
+    env_file: docker/development/.env
+    entrypoint: docker/entrypoint.sh
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+      - elasticsearch
+  elasticsearch:
+    image: elasticsearch:6.8.14
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=password
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+volumes:
+  db-data:
+  elasticsearch-data:
+
