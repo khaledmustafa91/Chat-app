@@ -1,0 +1,4 @@
+ar:
+  controllers:
+    errors:
+      uniqueness: 'السجل ليس فريدًا ، يرجى المحاولة مرة أخرى'

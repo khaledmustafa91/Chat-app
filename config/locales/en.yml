@@ -1,0 +1,4 @@
+en:
+  controllers:
+    errors:
+      uniqueness: 'The record is not unique, please try again'

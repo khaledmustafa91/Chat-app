@@ -1,0 +1,12 @@
+:verbose: false
+development:
+  :concurrency: 1
+stg-dev:
+  :concurrency: 10
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 10
+:queues:
+  - default
+:timeout: 60
