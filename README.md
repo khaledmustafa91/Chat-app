@@ -61,7 +61,7 @@ JSON example of the response
 **Show**
 
 ```
-GET /application/:application_token
+GET /applications/:application_token
 ```
 
 JSON example of the response
@@ -80,7 +80,7 @@ JSON example of the response
 **Update**
 
 ```
-PUT /application/:application_token
+PUT /applications/:application_token
 ```
 
 JSON example of request
@@ -163,7 +163,7 @@ JSON example of the response
 
 ### Messages
 
-**Create a new message for a specific application to specific chat**
+**Create a new message for a specific application to a specific chat**
 
 ```
 POST /applications/:application_token/chats/:chat_number/messages
